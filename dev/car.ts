@@ -72,10 +72,6 @@ class Car extends GameObject {
     public changeColor(deg : number) : void {
         this.style.filter = `hue-rotate(${deg}deg)`
     }
-
-    protected draw() : void {
-        super.draw()
-    }
 }
 
 window.customElements.define("car-component", Car as any)

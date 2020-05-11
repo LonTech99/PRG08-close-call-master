@@ -79,9 +79,6 @@ class Car extends GameObject {
     changeColor(deg) {
         this.style.filter = `hue-rotate(${deg}deg)`;
     }
-    draw() {
-        super.draw();
-    }
 }
 window.customElements.define("car-component", Car);
 class Game {
@@ -165,9 +162,6 @@ class Rock extends GameObject {
             this.rotationSpeed = 0;
         }
         super.move();
-    }
-    draw() {
-        super.draw();
     }
     onCollision(gameObject) {
     }

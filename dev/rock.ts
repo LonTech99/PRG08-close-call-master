@@ -39,10 +39,6 @@ class Rock extends GameObject{
         super.move()
     }
 
-    protected draw() : void {
-        super.draw()
-    }
-
     public onCollision (gameObject : GameObject) : void {
 
     }
