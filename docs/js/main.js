@@ -10,9 +10,6 @@ class GameObject extends HTMLElement {
     set Y(value) { this.y = value; }
     get width() { return this.clientWidth; }
     get height() { return this.clientHeight; }
-    update() {
-        this.draw;
-    }
     move() {
         this.draw();
     }
@@ -25,6 +22,10 @@ class Wheel extends HTMLElement {
         super();
         this.style.transform = `translate(${offsetCarX}px, 30px)`;
         car.appendChild(this);
+    }
+    move() {
+    }
+    onCollision(gameobject) {
     }
 }
 window.customElements.define("wheel-component", Wheel);
@@ -68,6 +69,8 @@ class Car extends GameObject {
         }
         super.move();
     }
+    onCollision(gameObject) {
+    }
     crash() {
         this.speed = 0;
         this.braking = false;
@@ -88,22 +91,19 @@ class Game {
         this.score = 0;
         this.request = 0;
         this.gameover = false;
-        let gameobject = [];
+        this.gameObjects = [];
         for (let i = 0; i < 6; i++) {
             this.addCarWithRock(i);
         }
         this.gameLoop();
     }
     addCarWithRock(index) {
-        this.cars.push(new Car(index, this));
-        this.rocks.push(new Rock(index));
+        this.gameObjects.push(new Car(index, this));
+        this.gameObjects.push(new Rock(index));
     }
     gameLoop() {
-        for (let car of this.cars) {
-            car.move();
-        }
-        for (let rock of this.rocks) {
-            rock.move();
+        for (const gameObject of this.gameObjects) {
+            gameObject.move();
         }
         this.checkCollision();
         this.request = requestAnimationFrame(() => this.gameLoop());
@@ -168,6 +168,8 @@ class Rock extends GameObject {
     }
     draw() {
         super.draw();
+    }
+    onCollision(gameObject) {
     }
     crashed(carSpeed) {
         this.g = 9.81;

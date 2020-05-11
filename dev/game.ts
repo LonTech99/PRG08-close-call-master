@@ -6,16 +6,11 @@ class Game {
     private score   : number    = 0
     private request : number    = 0
     private gameover: boolean   = false
+    private gameObjects : GameObject[] = []
 
 
     constructor() {
-
-        let gameobject : GameObject[] = [
-
-        ]
-
-
-        for(let i = 0 ; i < 6 ; i++) {
+            for(let i = 0 ; i < 6 ; i++) {
             this.addCarWithRock(i)
         }
 
@@ -23,16 +18,13 @@ class Game {
     }
 
     private addCarWithRock(index : number) {
-        this.cars.push(new Car(index, this))
-        this.rocks.push(new Rock(index))
+        this.gameObjects.push(new Car(index, this))
+        this.gameObjects.push(new Rock(index))
     }
 
-    private gameLoop(){
-        for(let car of this.cars){
-            car.move()
-        }
-        for(let rock of this.rocks) {
-            rock.move()
+    private gameLoop() : void{
+        for (const gameObject of this.gameObjects) {
+            gameObject.move()
         }
 
         this.checkCollision()
@@ -40,7 +32,7 @@ class Game {
         this.request = requestAnimationFrame(() => this.gameLoop())
     }
 
-    private checkCollision() {
+    private checkCollision() : void {
         for(let car of this.cars) {
             for(let rock of this.rocks) {
                 if(this.hasCollision(car, rock)) {
@@ -58,14 +50,14 @@ class Game {
         cancelAnimationFrame(this.request)
     }
 
-    public addScore(x : number){
+    public addScore(x : number) : void{
         if(!this.gameover) {
             this.score += Math.floor(x)
             this.draw()
         }
     }
 
-    private draw() {
+    private draw() : void{
         document.getElementById("score").innerHTML = "Score : "+this.score
     }
 

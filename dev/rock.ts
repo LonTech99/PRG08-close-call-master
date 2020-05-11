@@ -43,7 +43,11 @@ class Rock extends GameObject{
         super.draw()
     }
 
-    public crashed(carSpeed : number) {
+    public onCollision (gameObject : GameObject) : void {
+
+    }
+
+    public crashed(carSpeed : number) : void {
         this.g = 9.81
         this.speed = carSpeed
         this.rotationSpeed = 5

@@ -9,6 +9,14 @@ class Wheel extends HTMLElement{
 
         car.appendChild(this)
     }
+
+    public move() : void {
+
+    }
+
+    public onCollision (gameobject : GameObject) : void {
+        
+    }
 }
 
 window.customElements.define("wheel-component", Wheel as any)

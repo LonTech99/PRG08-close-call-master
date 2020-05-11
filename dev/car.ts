@@ -30,12 +30,12 @@ class Car extends GameObject {
         parent.appendChild(this)
     }
 
-    private handleMouseClick(e:MouseEvent) {
+    private handleMouseClick(e:MouseEvent) : void {
         this.braking = true
         this.changeColor(80) //green
     }
 
-    private handleKeyDown(e : KeyboardEvent) {
+    private handleKeyDown(e : KeyboardEvent) : void {
         if(e.key == ' ') { // spacebar
             // Brake
             this.braking = true
@@ -57,9 +57,13 @@ class Car extends GameObject {
             this.stopped = true
         }
         super.move()
-    } 
+    }
 
-    public crash() {
+    public onCollision (gameObject : GameObject) : void {
+
+    }
+
+    public crash() : void {
         this.speed = 0
         this.braking = false
         this.changeColor(300) //red
