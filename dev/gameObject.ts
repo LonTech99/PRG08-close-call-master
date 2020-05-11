@@ -21,7 +21,16 @@ abstract class GameObject extends HTMLElement{
     }
 
     public update() : void {
+        this.draw
 
+    }
+
+    protected move() : void{
+        this.draw()
+    }
+
+    protected draw() : void {
+        this.style.transform =`translate(${this.X}px,${this.Y}px)`
     }
 
 }

@@ -11,6 +11,13 @@ class GameObject extends HTMLElement {
     get width() { return this.clientWidth; }
     get height() { return this.clientHeight; }
     update() {
+        this.draw;
+    }
+    move() {
+        this.draw();
+    }
+    draw() {
+        this.style.transform = `translate(${this.X}px,${this.Y}px)`;
     }
 }
 class Wheel extends HTMLElement {
@@ -59,7 +66,7 @@ class Car extends GameObject {
             this.braking = false;
             this.stopped = true;
         }
-        this.draw();
+        super.move();
     }
     crash() {
         this.speed = 0;
@@ -70,7 +77,7 @@ class Car extends GameObject {
         this.style.filter = `hue-rotate(${deg}deg)`;
     }
     draw() {
-        this.style.transform = `translate(${this.X}px,${this.Y}px)`;
+        super.draw();
     }
 }
 window.customElements.define("car-component", Car);
@@ -157,10 +164,10 @@ class Rock extends GameObject {
             this.g = 0;
             this.rotationSpeed = 0;
         }
-        this.draw();
+        super.move();
     }
     draw() {
-        this.style.transform = `translate(${this.X}px,${this.Y}px)`;
+        super.draw();
     }
     crashed(carSpeed) {
         this.g = 9.81;

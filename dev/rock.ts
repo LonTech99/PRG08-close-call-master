@@ -36,11 +36,11 @@ class Rock extends GameObject{
         }
 
         //teken de div op de juiste positie
-        this.draw()
+        super.move()
     }
 
-    private draw() : void {
-        this.style.transform =`translate(${this.X}px,${this.Y}px)`
+    protected draw() : void {
+        super.draw()
     }
 
     public crashed(carSpeed : number) {
