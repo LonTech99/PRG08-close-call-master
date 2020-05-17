@@ -60,7 +60,7 @@ class Car extends GameObject {
     }
 
     public onCollision (gameObject : GameObject) : void {
-
+        this.crash()
     }
 
     public crash() : void {

@@ -10,6 +10,12 @@ class GameObject extends HTMLElement {
     set Y(value) { this.y = value; }
     get width() { return this.clientWidth; }
     get height() { return this.clientHeight; }
+    hasCollision(gameObject) {
+        return (gameObject.X < this.X + this.width &&
+            gameObject.X + gameObject.width > this.X &&
+            gameObject.Y < this.Y + this.height &&
+            gameObject.Y + gameObject.height > this.Y);
+    }
     move() {
         this.draw();
     }
@@ -17,6 +23,7 @@ class GameObject extends HTMLElement {
         this.style.transform = `translate(${this.X}px,${this.Y}px)`;
     }
 }
+window.customElements.define("gameobject-component", GameObject);
 class Wheel extends HTMLElement {
     constructor(car, offsetCarX) {
         super();
@@ -70,6 +77,7 @@ class Car extends GameObject {
         super.move();
     }
     onCollision(gameObject) {
+        this.crash();
     }
     crash() {
         this.speed = 0;
@@ -106,14 +114,16 @@ class Game {
         this.request = requestAnimationFrame(() => this.gameLoop());
     }
     checkCollision() {
-        for (let car of this.cars) {
-            for (let rock of this.rocks) {
-                if (this.hasCollision(car, rock)) {
-                    rock.crashed(car.Speed);
-                    car.crash();
-                    this.gameOver();
+        for (const carGameObject of this.gameObjects) {
+            if (carGameObject instanceof Car)
+                for (const rockGameObject of this.gameObjects) {
+                    if (rockGameObject instanceof Rock)
+                        if (carGameObject.hasCollision(rockGameObject)) {
+                            carGameObject.onCollision(carGameObject);
+                            rockGameObject.onCollision(carGameObject);
+                            this.gameOver();
+                        }
                 }
-            }
         }
     }
     gameOver() {
@@ -129,12 +139,6 @@ class Game {
     }
     draw() {
         document.getElementById("score").innerHTML = "Score : " + this.score;
-    }
-    hasCollision(rect1, rect2) {
-        return (rect1.X < rect2.X + rect2.width &&
-            rect1.X + rect1.width > rect2.X &&
-            rect1.Y < rect2.Y + rect2.height &&
-            rect1.Y + rect1.height > rect2.Y);
     }
 }
 window.addEventListener("load", () => new Game());

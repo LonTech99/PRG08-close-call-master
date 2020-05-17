@@ -20,11 +20,14 @@ abstract class GameObject extends HTMLElement{
 
     }
 
-    //abstract onCollision (gameObject: GameObject) : void
+    abstract onCollision (gameObject: GameObject) : void
 
-    //public checkCollision(gameObject: Car) : boolean {
-
-    //}
+    public hasCollision(gameObject : GameObject) : boolean {
+        return (gameObject.X < this.X + this.width &&
+            gameObject.X + gameObject.width > this.X &&
+            gameObject.Y < this.Y + this.height &&
+            gameObject.Y + gameObject.height > this.Y)
+    }
 
     public move() : void{
         
@@ -37,3 +40,5 @@ abstract class GameObject extends HTMLElement{
 
 
 }
+
+window.customElements.define("gameobject-component", GameObject as any)

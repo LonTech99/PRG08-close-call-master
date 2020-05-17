@@ -39,8 +39,7 @@ class Rock extends GameObject{
         super.move()
     }
 
-    public onCollision (gameObject : GameObject) : void {
-
+    public onCollision (gameObject : Car) : void {
     }
 
     public crashed(carSpeed : number) : void {
