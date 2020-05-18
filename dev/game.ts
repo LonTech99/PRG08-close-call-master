@@ -36,13 +36,14 @@ class Game {
         for(const carGameObject of this.gameObjects) {
             if (carGameObject instanceof Car)
                 for(const rockGameObject of this.gameObjects) {
-                    if (rockGameObject instanceof Rock)
+                    if (rockGameObject instanceof Rock){
                     if(carGameObject.hasCollision(rockGameObject)) {
                     carGameObject.onCollision(carGameObject)
                     rockGameObject.onCollision(carGameObject)
                     this.gameOver()
                     }
                 }
+            }
         }
     }
 
